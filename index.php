@@ -25,7 +25,7 @@ $siteName = 'Live TV';
         <div class="header-brand">
             <div class="brand-details">
                 <span class="brand-title"><?= htmlspecialchars($siteName) ?></span>
-                <span class="brand-badge">PREMIUM IPTV</span>
+                <span class="brand-badge">Test Purpose Only</span>
             </div>
         </div>
 
