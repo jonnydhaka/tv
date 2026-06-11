@@ -256,6 +256,7 @@ body.theater-mode::after {
     height: calc(100vh - 105px); /* Header(70px) + Footer(35px) */
     position: relative;
     z-index: 1;
+    overflow: auto;
 }
 
 /* Left Section: Video Stage */
