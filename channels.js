@@ -20,7 +20,7 @@ const channels = [
         "id": 3,
         "name": "T Sports",
         "logo": "https://s3.aynaott.com/storage/9fbf3e9ed22c8cc71c93f25d6cb9be32",
-        "url":  "http://198.195.239.50:8095/tsports/index.m3u8",
+        "url":  "http://198.195.239.50:8095/tsports/tracks-v1a1/mono.m3u8",
         "category": "Sports"
     },
     {

@@ -378,7 +378,9 @@
 
         dom.bufferOverlay.style.display = 'flex';
 
-        if (typeof Hls !== 'undefined' && Hls.isSupported() && ch.url.indexOf('.m3u8') !== -1) {
+        var src = proxiedUrl(ch.url);
+
+        if (typeof Hls !== 'undefined' && Hls.isSupported() && src.indexOf('.m3u8') !== -1) {
             state.hls = new Hls({
                 maxBufferLength: 10,
                 maxMaxBufferLength: 20,
@@ -386,7 +388,7 @@
                 lowLatencyMode: !isAndroid(),
                 backBufferLength: 8
             });
-            state.hls.loadSource(ch.url);
+            state.hls.loadSource(src);
             state.hls.attachMedia(dom.video);
 
             state.hls.on(Hls.Events.MANIFEST_PARSED, function () {
@@ -403,14 +405,23 @@
                 } else if (data.type === Hls.ErrorTypes.MEDIA_ERROR) {
                     state.hls.recoverMediaError();
                 } else {
-                    tryNativeFallback(ch.url);
+                    tryNativeFallback(src);
                 }
             });
-        } else if (nativeHlsSupported() && ch.url.indexOf('.m3u8') !== -1) {
-            loadDirect(ch.url);
+        } else if (nativeHlsSupported() && src.indexOf('.m3u8') !== -1) {
+            loadDirect(src);
         } else {
-            loadDirect(ch.url);
+            loadDirect(src);
         }
+    }
+
+    function proxiedUrl(url) {
+        if (!url) return url;
+        if (url.indexOf('http://') === 0 && window.location.protocol === 'https:') {
+            var proxy = (window.location.pathname.replace(/\/[^/]*$/, '/') || '/') + 'stream-proxy.php';
+            return proxy + '?u=' + encodeURIComponent(url);
+        }
+        return url;
     }
 
     function loadDirect(url) {
