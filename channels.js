@@ -786,7 +786,7 @@ const channels = [
         "name": "Zibo TV",
         "logo": "https://ziboplay.com/assets/uploads/sddd-019d29b6-e1cb-7039-8b93-01c26c877ba3-1.jpeg",
         "url": "https://fifaexclusive.myziboplay.xyz/Fifa/tracks-v1a1/mono.m3u8?token=fe6Uuugm3xgIm2",
-        "category": "Entertainment"
+        "category": "Sports"
     },
 ];
 
