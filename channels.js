@@ -6,7 +6,8 @@ const channels = [
         "id": 1,
         "name": "Somoy TV",
         "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1735560559088.png",
-        "url": "https://owrcovcrpy.gpcdn.net/bpk-tv/1702/output/index.m3u8",
+        "url": "https://iptv.ryvoxtb.workers.dev/live/somoytv.m3u8?token=698bb62d6919e5c22ec8be7a017971f5&time=1781488364",
+        //"url": "https://live.thebosstv.com:30443/dwlive/Somoy-TV/chunks.m3u8",
         "category": "News"
     },
     {
@@ -20,8 +21,8 @@ const channels = [
         "id": 3,
         "name": "T Sports",
         "logo": "https://s3.aynaott.com/storage/9fbf3e9ed22c8cc71c93f25d6cb9be32",
-        //"url":  "http://198.195.239.50:8095/tsports/tracks-v1a1/mono.m3u8",
-        "url":  "https://premierleagpl23.akamaized.net/hls/live/2107108/Tapmad-P2s6L_EnG-FiN@L/level_0.m3u8",
+        "url":  "http://198.195.239.50:8095/tsports/tracks-v1a1/mono.m3u8",
+        //"url":  "https://premierleagpl23.akamaized.net/hls/live/2107108/Tapmad-P2s6L_EnG-FiN@L/level_0.m3u8",
         "category": "Sports"
     },
     {
@@ -772,7 +773,21 @@ const channels = [
         "logo": "https://ui-avatars.com/api/?name=NewsMax&background=0D1117&color=00B4D8&bold=true",
         "url": "https://nmxlive.akamaized.net/hls/live/529965/Live_1/index.m3u8",
         "category": "News"
-    }
+    },
+     {
+        "id": 111,
+        "name": "Channel One",
+        "logo": "https://upload.wikimedia.org/wikipedia/commons/c/c3/%E0%A6%9A%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%A8%E0%A7%87%E0%A6%B2_%E0%A6%93%E0%A6%AF%E0%A6%BC%E0%A6%BE%E0%A6%A8%E0%A7%87%E0%A6%B0_%E0%A6%B2%E0%A7%8B%E0%A6%97%E0%A7%8B.svg",
+        "url": "https://owrcovcrpy.gpcdn.net/bpk-tv/1702/output/index.m3u8",
+        "category": "News"
+    },
+    {
+        "id": 112,
+        "name": "Zibo TV",
+        "logo": "https://ziboplay.com/assets/uploads/sddd-019d29b6-e1cb-7039-8b93-01c26c877ba3-1.jpeg",
+        "url": "https://fifaexclusive.myziboplay.xyz/Fifa/tracks-v1a1/mono.m3u8?token=fe6Uuugm3xgIm2",
+        "category": "Entertainment"
+    },
 ];
 
 if (typeof module !== 'undefined') {
