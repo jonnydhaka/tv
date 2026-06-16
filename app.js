@@ -19,7 +19,8 @@
         nativeFallbackAttempted: false,
         audioUnlocked: false,
         controlsTimer: null,
-        filteredChannels: []
+        filteredChannels: [],
+        bufferShowTimer: null
     };
 
     // ── DOM References ─────────────────────────────────────
@@ -378,6 +379,12 @@
 
         dom.bufferOverlay.style.display = 'flex';
 
+        setTimeout(function () {
+            if (!dom.video.paused && !dom.video.ended) {
+                hideBuffer();
+            }
+        }, 10000);
+
         var src = proxiedUrl(ch.url);
 
         if (typeof Hls !== 'undefined' && Hls.isSupported() && src.indexOf('.m3u8') !== -1) {
@@ -449,7 +456,7 @@
         promise.then(function () {
             state.audioUnlocked = true;
             showPlayIcon(true);
-            dom.bufferOverlay.style.display = 'none';
+            hideBuffer();
             dom.volumeSlider.value = dom.video.volume || 1;
             showVolumeIcon(false);
         }).catch(function () {
@@ -457,11 +464,11 @@
             showVolumeIcon(true);
             dom.video.play().then(function () {
                 showPlayIcon(true);
-                dom.bufferOverlay.style.display = 'none';
+                hideBuffer();
                 dom.volumeSlider.value = 0;
             }).catch(function () {
                 showPlayIcon(false);
-                dom.bufferOverlay.style.display = 'none';
+                hideBuffer();
             });
         });
     }
@@ -650,16 +657,31 @@
     }
 
     // ── Player Event Listeners ─────────────────────────────
-    dom.video.addEventListener('waiting',   function () { dom.bufferOverlay.style.display = 'flex'; });
-    dom.video.addEventListener('playing',   function () { dom.bufferOverlay.style.display = 'none'; if (state.ambientGlowOn) startAmbientLoop(); });
-    dom.video.addEventListener('seeking',   function () { dom.bufferOverlay.style.display = 'flex'; });
-    dom.video.addEventListener('seeked',    function () { dom.bufferOverlay.style.display = 'none'; });
-    dom.video.addEventListener('error',     function () { dom.bufferOverlay.style.display = 'none'; showPlayIcon(false); });
-    dom.video.addEventListener('pause',     stopAmbientLoop);
+    function showBufferDelayed() {
+        clearTimeout(state.bufferShowTimer);
+        state.bufferShowTimer = setTimeout(function () {
+            if (dom.video.paused || dom.video.ended) return;
+            dom.bufferOverlay.style.display = 'flex';
+        }, 800);
+    }
+
+    function hideBuffer() {
+        clearTimeout(state.bufferShowTimer);
+        dom.bufferOverlay.style.display = 'none';
+    }
+
+    dom.video.addEventListener('waiting',   showBufferDelayed);
+    dom.video.addEventListener('playing',   function () { hideBuffer(); if (state.ambientGlowOn) startAmbientLoop(); });
+    dom.video.addEventListener('seeking',   showBufferDelayed);
+    dom.video.addEventListener('seeked',    hideBuffer);
+    dom.video.addEventListener('error',     function () { hideBuffer(); showPlayIcon(false); });
+    dom.video.addEventListener('pause',     function () { hideBuffer(); stopAmbientLoop(); });
     dom.video.addEventListener('ended',     stopAmbientLoop);
+    dom.video.addEventListener('canplay',   hideBuffer);
+    dom.video.addEventListener('canplaythrough', hideBuffer);
 
     dom.video.addEventListener('stalled', function () {
-        dom.bufferOverlay.style.display = 'flex';
+        showBufferDelayed();
         if (state.hls) {
             try { state.hls.startLoad(); } catch (_) {}
         } else {
