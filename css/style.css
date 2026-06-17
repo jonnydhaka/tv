@@ -1520,3 +1520,6 @@ video {
 .star-icon {
     font-size: 0.9rem;
 }
+.play-success div#videoBufferOverlay {
+    display: none !important;
+}

@@ -358,6 +358,8 @@
         var card = dom.channelGrid.querySelector('.channel-card[data-id="' + ch.id + '"]');
         if (card) card.classList.add('active');
 
+        dom.videoWrap.classList.remove('play-success');
+
         dom.channelName.textContent = ch.name;
         dom.metaTitle.textContent = ch.name;
         dom.metaLogo.src = ch.logo;
@@ -459,6 +461,7 @@
             hideBuffer();
             dom.volumeSlider.value = dom.video.volume || 1;
             showVolumeIcon(false);
+            dom.videoWrap.classList.add('play-success');
         }).catch(function () {
             dom.video.muted = true;
             showVolumeIcon(true);
@@ -466,6 +469,7 @@
                 showPlayIcon(true);
                 hideBuffer();
                 dom.volumeSlider.value = 0;
+                dom.videoWrap.classList.add('play-success');
             }).catch(function () {
                 showPlayIcon(false);
                 hideBuffer();
